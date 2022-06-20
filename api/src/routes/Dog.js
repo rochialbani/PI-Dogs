@@ -20,7 +20,7 @@ const getDogsApi = async () =>{
             life_span_min: Math.min(...dog.life_span.match(regex)),
             life_span_max: Math.min(...dog.life_span.match(regex)),
             image: dog.image.url,
-            temperament: dog.temperament
+            temperaments: dog.temperament
         };
          // le digo con elregex que busque solo los numeros que matcheen 
          //con el string que me trae la api, luego busco el menor y es lo 
@@ -45,12 +45,13 @@ router.get('/', async(req, res, next) =>{
                     },
                 }
             })
-            let allDogs = dogsApi.concat(dogsDb).sort((a, b) => a.name < b.name ? -1 : 1);
+            //dogsDb = dogsDb.map(t => t.get({plain:true}))
+            let allDogs = dogsApi.concat(dogsDb);
             return res.send(allDogs.length ? allDogs : res.status(404).json('Info not found'))
         }
         if(name){
             let dogsApiQuery = await getDogsApi()
-            console.log(dogsApiQuery)
+            //console.log(dogsApiQuery)
             let dogName = await dogsApiQuery.filter(d => d.name.toLowerCase().includes(name.toLowerCase()))
             //console.log(dogName)
             let dogsDbName = await Dog.findAll({
@@ -64,7 +65,8 @@ router.get('/', async(req, res, next) =>{
                     ['name', 'ASC'],
                 ],
             });
-            let allDogs = dogName.concat(dogsDbName).sort((a, b) => a.name < b.name ? -1 : 1);
+            //dogsDbName = dogsDbName.map(t => t.get({plain:true}))
+            let allDogs = dogName.concat(dogsDbName).sort((a, b) => a.name > b.name ? 1 : -1);
             return res.send(allDogs.length ? allDogs : res.status(404).json('Dog not found'));
         }
     } catch (error) {
@@ -77,7 +79,7 @@ router.get('/:id', async(req, res, next) =>{
     try {
         if(isNaN(id)){//typeof id === String
             //const dogDbId = await Dog.findByPk(id)
-            const dogDbId = await Dog.findByPk(id, {
+            let dogDbId = await Dog.findByPk(id, {
                 include:
                 {
                     model: Temperament,
@@ -87,6 +89,8 @@ router.get('/:id', async(req, res, next) =>{
                     },
                 }
             })
+            //dogDbId = dogDbId.get({plain:true}).join(', ')
+        console.log(dogDbId);
             return res.send(dogDbId ? dogDbId : res.status(404).json('Dog not found'))
             //res.send(dogDbId)
         }else{
@@ -103,7 +107,7 @@ router.get('/:id', async(req, res, next) =>{
 })
 
 router.post('/', async(req, res, next) =>{
-    let { name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max, image, createdInDb, temperament} = req.body; 
+    let { name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max, image, createdInDb, temperaments} = req.body; 
 
     try {
         //if (name && weight_min && weight_max && height_min && height_max && temperament){
@@ -120,12 +124,13 @@ router.post('/', async(req, res, next) =>{
         })
         let temperamentDb = await Temperament.findAll({
             where: { 
-                name : temperament 
+                name : temperaments 
             }
         });
         //console.log(temperamentDb)
         newDog.addTemperament(temperamentDb)
     //}
+    //console.log(newDog.get({plain:true}));
         return res.status(201).json('Dog created successfully')
     } catch (error) {
         next(error)

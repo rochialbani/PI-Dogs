@@ -17,14 +17,14 @@ const Detail = (props) => {
         }
     }, [index, dispatch])
 
-    //console.log(myDog)
+    console.log(myDog)
     return(
         <div>
             
             {Object.values(myDog).length >0 ?
             <div>
-                <h1>Name: {myDog.name}</h1>
                 <img src={myDog.image} alt='dog image' height='200px'/>
+                <h1>Name: {myDog.name}</h1>
                 {/* <h3>Years: {`${myDog.life_span_min} - ${myDog.life_span_max}`}</h3> */}
                 <h3>Life Span: </h3>
                 {
@@ -42,9 +42,9 @@ const Detail = (props) => {
                 : "There's no weight provided for this dog"
                 }
                 {/* <h3>Weight: {`${myDog.weight_min} - ${myDog.weight_max}`} kg</h3> */}
-                <h3>Height: {`${myDog.height_min} - ${myDog.height_max}`}</h3>
+                <h3>Height: {`${myDog.height_min} - ${myDog.height_max} cm`}</h3>
                 {/* <div>Temperaments: {myDog.temperament?.map((el) => el.name)}</div> */}
-                <h3>Temperament: {!myDog.cratedInDb? myDog.temperament : Object.values(myDog).temperament.map((t) => Object.values(t.name) + '.')}</h3>
+                <h3>Temperament: {!myDog.createdInDb? myDog.temperaments : myDog.temperaments.map((t) => t.name).join(', ')}</h3>
                 {/* <h3>Temperament: </h3> */}
                 {/* <h3>
                 {

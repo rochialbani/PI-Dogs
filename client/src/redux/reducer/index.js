@@ -99,10 +99,10 @@ const rootReducer = (state = initialState, action) =>{
                 }
             }
             if(action.payload === "ascName"){
-                dogsInOrder = state.dogs.sort((a, b) => a.name > b.name ? 1 : -1);
+                dogsInOrder = state.dogs.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
             }
             if(action.payload === "dscName") {
-                dogsInOrder = state.dogs.sort((a, b) => a.name > b.name ? -1 : 1);
+                dogsInOrder = state.dogs.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1);
             }
             if(action.payload === "ascWeight"){
                 dogsInOrder = state.dogs.sort((a, b) => {

@@ -42,7 +42,7 @@ const Home = () => {
         e.preventDefault()
         setInput(e.target.value)
         dispatch(search(e.target.value))
-        setCurrentPage(1)
+        setCurrentPage(1)   
     }
 
     function handleSubmit(e){
@@ -142,8 +142,8 @@ const Home = () => {
                             name={d.name}
                             weight_min={d.weight_min}
                             weight_max={d.weight_max}
-                            temperament={d.temperament}
-                            cratedInDb={d.cratedInDb}
+                            temperaments={d.temperaments}
+                            createdInDb={d.createdInDb}
                             />)
                         })
                     }

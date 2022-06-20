@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { DogDetail } from '../../redux/actions'
 
-const Dog = ({id, image, name, weight_min, weight_max, temperament, cratedInDb}) => {
+const Dog = ({id, image, name, weight_min, weight_max, temperaments, createdInDb}) => {
     const dispatch = useDispatch()
     
     return(
@@ -16,12 +16,12 @@ const Dog = ({id, image, name, weight_min, weight_max, temperament, cratedInDb})
                 <h3>Weight</h3>
             <h4>{`${weight_min} - ${weight_max}`}</h4>
             </div>
-            {/* <h3>Temperament: {!cratedInDb? temperament : temperament.map(t => t.name)}</h3> */}
+            {/* <h3>Temperament: {!cratedInDb? temperaments : temperaments.map(t => t)}</h3> */}
             <h3>
-                    {cratedInDb
-                        ? temperament.map((e) => e.name).join(", ") // ["","",""]
-                        : temperament
-                        ? temperament
+                    {createdInDb
+                        ? temperaments.map((e) => e.name).join(', ')// ["","",""]
+                        : temperaments
+                        ? temperaments
                         : "🤷‍♂️ No temperaments provided for this breed 🤷‍♀️"}
                 </h3>
             </div>
