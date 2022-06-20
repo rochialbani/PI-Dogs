@@ -29,10 +29,10 @@ const Home = () => {
 //----------------TERMINA PAGINADO------------------
     
 //----------------RECARGAR PAGINA------------
-    // function handleClick(e){
-    //     e.preventDefault();
-    //     dispatch(getAllDogs());
-    // }
+    function handleClick(e){
+        e.preventDefault();
+        dispatch(getAllDogs());
+    }
     //---------------TERMINA RECARGAR PAGINA------------
 
     //---------------SEARCH BAR------------------
@@ -41,8 +41,8 @@ const Home = () => {
     function handleInputChange(e){
         e.preventDefault()
         setInput(e.target.value)
-        dispatch(search(e.target.value))
-        setCurrentPage(1)   
+        //dispatch(search(e.target.value))
+        //setCurrentPage(1)   
     }
 
     function handleSubmit(e){
@@ -50,10 +50,12 @@ const Home = () => {
         dispatch(search(e.target.value))
         setInput('')
         setCurrentPage(1)
+        
+        
     }
      //---------------TERMINA SEARCH BAR------------------
      //---------------ORDENAMIENTO--------------
-    let currentFilter = useSelector(state => state.filterOrder)
+    //let currentFilter = useSelector(state => state.filterOrder)
     const handleChangeSort = (e) => {
     e.preventDefault()
     dispatch(Order(e.target.value))
@@ -84,7 +86,7 @@ const Home = () => {
     return(
         <div>
             <Link to='/create/dog'>Create Dog</Link>
-            {/* <button onClick={e => {handleClick(e)}}>Reload</button> */}
+            <button onClick={e => {handleClick(e)}}>Reload</button>
             <div>
             <span>
                     <form onSubmit={e => handleSubmit(e)}>

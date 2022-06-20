@@ -107,12 +107,12 @@ const CreateDog = () => {
         else if(!Number(value.weight_min) && !Number(value.weight_max)){
             err.weight_min="Value needs to be a number.."
             err.weight_max="Value needs to be a number.."
-            }else if(value.weight_min < 1 || value.weight_min > 99){
+            }else if(value.weight_min <= 1 || value.weight_min > 99){
                 err.weight_min= 'The minimum weight of the dog must contain a maximum of 2 digits';
             }
             else if(value.weight_min > value.weight_max){
                 err.weight_max= 'The minimum weight of the dog cannot be greater than the maximum weight';
-            }else if(value.weight_max < 1 || value.weight_max > 99){
+            }else if(value.weight_max <= 1 || value.weight_max > 99){
                 err.weight_min= 'The maximum weight of the dog must contain a maximum of 2 digits';
             }
             else if(value.weight_min > value.weight_max){

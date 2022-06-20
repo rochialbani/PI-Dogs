@@ -7,7 +7,6 @@ const initialState={
     allDogs: [],
     temperaments: [],
     dogDetail: {},
-    filtered: [],
     filterOrder: {
         orderType: "All",
         tempFilter: "All",
@@ -20,9 +19,8 @@ const rootReducer = (state = initialState, action) =>{
         case GET_ALL_DOGS:
             return{
                 ...state,
-                dogs: action.payload,
+                dogs: action.payload.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1),
                 allDogs: action.payload,
-                filtered:action.payload
             };
         case GET_DOG_DETAIL:
             return{
@@ -70,7 +68,7 @@ const rootReducer = (state = initialState, action) =>{
             //     }
             // }; 
         case FILTER_TEMPERAMENTS:
-            const filter = action.payload === 'All' ? state.filtered : state.filtered?.filter(data => data.temperament?.includes(action.payload));
+            const filter = action.payload === 'All' ? state.allDogs : state.allDogs?.filter(data => data.temperaments?.includes(action.payload));
             return{
                 ...state,
                 dogs: filter,   

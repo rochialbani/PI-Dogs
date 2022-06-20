@@ -29,7 +29,7 @@ export function search(name){
             let dog = await axios.get(`http://localhost:3001/dog?name=${name}`)
             return dispatch({type: SEARCH_DOG, payload: dog.data})
         } catch (error) {
-            console.log(error);
+            alert('Dog not found');
         }
     }
 }
