@@ -106,7 +106,7 @@ router.post('/', async(req, res, next) =>{
     let { name, height_min, height_max, weight_min, weight_max, life_span_min, life_span_max, image, createdInDb, temperament} = req.body; 
 
     try {
-        if (name && weight_min && weight_max && height_min && height_max && temperament){
+        //if (name && weight_min && weight_max && height_min && height_max && temperament){
             let newDog = await Dog.create({
             name,
             image,
@@ -125,20 +125,11 @@ router.post('/', async(req, res, next) =>{
         });
         //console.log(temperamentDb)
         newDog.addTemperament(temperamentDb)
-    }
+    //}
         return res.status(201).json('Dog created successfully')
     } catch (error) {
         next(error)
     }
 })
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

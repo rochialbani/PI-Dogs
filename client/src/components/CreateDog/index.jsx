@@ -42,10 +42,10 @@ const CreateDog = () => {
             ...input,
             temperament: [...input.temperament, e.target.value]
         })
-        setErrors((validate({
+        setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
-        })))
+        }))
     }
 
     function handleSubmit(e){
@@ -57,6 +57,7 @@ const CreateDog = () => {
         }else if (allDogs.find((d) => d.name.toLowerCase() == input.name.toLowerCase())) {
             alert("There's already a dog with that name!");
         }else{
+            console.log(input)
         dispatch(createDog(input))
         alert('Dog created successfully!!')
         setInput({
@@ -132,7 +133,7 @@ const CreateDog = () => {
             else if(regex.test(value.image) === false) {
                 err.image = "Value needs to be an image URL"
             }
-            else if(!value.temperament){
+            else if(!value.temperament.length){
                 err.temperament='Data required'
             }
             else if (value.temperament?.length === 5) {
@@ -187,14 +188,16 @@ const CreateDog = () => {
                     <input type="text"  name='image' value={input.image} onChange={(e)=>handleChange(e)}/>
                     {error.image && (<p className='error'>{error.image}</p>)}
                 </div>
-                <select onChange={(e)=>handleSelect(e)}>
+                <label> Temperaments: </label>
+                <select onChange={(e)=>handleSelect(e)} name="temperament" value={input.temperament}>
                     {allTemperaments.map(t =>{
                         return <option value={t.name}>{t.name}</option>
                     })}
                 </select>
                 {error.temperament && (<p className='error'>{error.temperament}</p>)}
             </form>
-                <button type="submit" onClick={e => handleSubmit(e)}>Ready!</button>
+            
+                <button type="submit" onClick={(e) => handleSubmit(e)}>Ready!</button>
             {input.temperament.map(t =>
                 <div className='temp'>
                     <p>{t}</p>

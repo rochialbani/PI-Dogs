@@ -57,8 +57,8 @@ const Home = () => {
     const handleChangeSort = (e) => {
     e.preventDefault()
     dispatch(Order(e.target.value))
-    dispatch(FilterTemperaments(currentFilter.tempFilter))
-    dispatch(FilterDbApi(currentFilter.filterApiDb))
+    // dispatch(FilterTemperaments(currentFilter.tempFilter))
+    // dispatch(FilterDbApi(currentFilter.filterApiDb))
     setCurrentPage(1)
 }
      //---------------TERMINA ORDENAMIENTO--------------
@@ -66,8 +66,8 @@ const Home = () => {
     const handleChangeBdApi = (e) => {
         e.preventDefault()
         dispatch(FilterDbApi(e.target.value))
-        dispatch(FilterTemperaments(currentFilter.tempFilter))
-        dispatch(Order(currentFilter.orderType))
+        //dispatch(FilterTemperaments(currentFilter.tempFilter))
+        //dispatch(Order(currentFilter.orderType))
         setCurrentPage(1)
     }
      //---------------TERMINADO FILTRADO DB O API-------------
@@ -75,9 +75,9 @@ const Home = () => {
     const temperaments = useSelector(state => state.temperaments)
     const handleChangeTemperament = (e) => {
         e.preventDefault()
-        dispatch(FilterDbApi(currentFilter.filterApiDb))
+        //dispatch(FilterDbApi(currentFilter.filterApiDb))
         dispatch(FilterTemperaments(e.target.value))
-        dispatch(Order(currentFilter.orderType))
+        //dispatch(Order(currentFilter.orderType))
         setCurrentPage(1)
     }
      //---------------TERMINA FILTRADO POR TEMPERAMENTO--------------
@@ -87,8 +87,19 @@ const Home = () => {
             {/* <button onClick={e => {handleClick(e)}}>Reload</button> */}
             <div>
             <span>
+                    <form onSubmit={e => handleSubmit(e)}>
+                        <input 
+                        type='text' 
+                        placeholder="Search..." 
+                        name='name' 
+                        value={input} 
+                        onChange={(e) => handleInputChange(e)}
+                        onKeyPress={e => e.key === "Enter" && handleSubmit(e)}
+                        />
+                        {/* <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button> */}
+                    </form>
                     <h2>Get Dogs By:</h2>
-                    <select  defaultValue={"All"} onChange={(e) => handleChangeBdApi(e)}>
+                    <select  onChange={(e) => handleChangeBdApi(e)}>
                         <option value='All'>All Dogs</option>
                         <option value='Created'>DB</option>
                         <option value='Api'>API</option>
@@ -96,10 +107,10 @@ const Home = () => {
                 </span>
                 <span>
                     <h2>Filter by Temperaments: </h2>
-                    <select onChange={(e) => handleChangeTemperament(e)} name='filterByTemp' defaultValue={"All"}>
-                        <option value="All">Temperaments</option>
-                        {temperaments.map(t => (
-                        <option value={t.name}>{t.name}</option>
+                    <select onChange={(e) => handleChangeTemperament(e)} value="All" >
+                        <option >Temperaments</option>
+                        {temperaments && temperaments.map(t => (
+                        <option value={t.name} key={t.id}>{t.name}</option>
                         ))}
                     </select>
                 </span>
@@ -117,17 +128,6 @@ const Home = () => {
                     allDogs={allDogs.length}
                     pagination={pagination}
                     />
-                    <form onSubmit={e => handleSubmit(e)}>
-                        <input 
-                        type='text' 
-                        placeholder="Search..." 
-                        name='name' 
-                        value={input} 
-                        onChange={(e) => handleInputChange(e)}
-                        onKeyPress={e => e.key === "Enter" && handleSubmit(e)}
-                        />
-                        {/* <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button> */}
-                    </form>
                     <div>
                         {
                     <div>
@@ -137,12 +137,13 @@ const Home = () => {
                             return (
                             <Dog 
                             key={d.id}
+                            id={d.id}
+                            image={d.image}
                             name={d.name}
                             weight_min={d.weight_min}
                             weight_max={d.weight_max}
                             temperament={d.temperament}
-                            image={d.image}
-                            id={d.id}
+                            cratedInDb={d.cratedInDb}
                             />)
                         })
                     }

@@ -7,6 +7,7 @@ const initialState={
     allDogs: [],
     temperaments: [],
     dogDetail: {},
+    filtered: [],
     filterOrder: {
         orderType: "All",
         tempFilter: "All",
@@ -20,7 +21,8 @@ const rootReducer = (state = initialState, action) =>{
             return{
                 ...state,
                 dogs: action.payload,
-                allDogs: action.payload
+                allDogs: action.payload,
+                filtered:action.payload
             };
         case GET_DOG_DETAIL:
             return{
@@ -47,27 +49,43 @@ const rootReducer = (state = initialState, action) =>{
                 dogDetail: {}
             };
         case FILTER_DB_API:
-            const dogsDbOrApi = action.payload === "Created" ? state.dogs.filter(d => d.createdInDb) : state.dogs.filter(d => !d.createdInDb)  
+            let filtBreed= state.allDogs;
+            let createdFilter = 
+            action.payload === 'All'?
+            filtBreed:
+            action.payload === 'Created'?
+            filtBreed.filter((e) => e.createdInDb) :
+            filtBreed.filter((e) =>!e.createdInDb)
             return{
                 ...state,
-                dogs: action.payload === "All" ? state.allDogs : dogsDbOrApi,
-                filterOrder: {
-                    ...state.filterOrder,
-                    filterApiDb: action.payload
-                }
-            }; 
+                dogs: createdFilter,
+            };
+            // const dogsDbOrApi = action.payload === "Created" ? state.dogs.filter(d => d.createdInDb) : state.dogs.filter(d => !d.createdInDb)  
+            // return{
+            //     ...state,
+            //     dogs: action.payload === "All" ? state.allDogs : dogsDbOrApi,
+            //     filterOrder: {
+            //         ...state.filterOrder,
+            //         filterApiDb: action.payload
+            //     }
+            // }; 
         case FILTER_TEMPERAMENTS:
-            const dogFilter = action.payload === 'All'? state.dogs : state.dogs.filter(d => {
-            return d.temperament && d.temperament.include(action.payload)    
-        })
-                return{
-                    ...state,
-                    dogs: dogFilter,
-                    filterOrder: {
-                        ...state.filterOrder,
-                        tempFilter: action.payload
-                    }
-                }
+            const filter = action.payload === 'All' ? state.filtered : state.filtered?.filter(data => data.temperament?.includes(action.payload));
+            return{
+                ...state,
+                dogs: filter,   
+            }
+        //     const dogFilter = action.payload === 'All'? state.dogs : state.dogs.filter(d => {
+        //     return d.temperament && d.temperament.include(action.payload)    
+        // })
+        //         return{
+        //             ...state,
+        //             dogs: dogFilter,
+        //             filterOrder: {
+        //                 ...state.filterOrder,
+        //                 tempFilter: action.payload
+        //             }
+        //         }
         case ORDER:
             let dogsInOrder =[]
             if(action.payload === 'All'){

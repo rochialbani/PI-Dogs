@@ -8,6 +8,7 @@ import { clear, DogDetail } from '../../redux/actions'
 const Detail = (props) => {
     const dispatch = useDispatch()
     const index = props.match.params.id
+    const myDog = useSelector (state => state.dogDetail)
     useEffect(() =>{
         dispatch(DogDetail(index))
         return () => {
@@ -16,17 +17,16 @@ const Detail = (props) => {
         }
     }, [index, dispatch])
 
-    const myDog = useSelector (state => state.dogDetail)
     //console.log(myDog)
     return(
         <div>
-            {
-            myDog ?
+            
+            {Object.values(myDog).length >0 ?
             <div>
                 <h1>Name: {myDog.name}</h1>
                 <img src={myDog.image} alt='dog image' height='200px'/>
                 {/* <h3>Years: {`${myDog.life_span_min} - ${myDog.life_span_max}`}</h3> */}
-                <h3>Years: </h3>
+                <h3>Life Span: </h3>
                 {
                 myDog.life_span_min || myDog.life_span_max
                     ?myDog.life_span_min !== myDog.life_span_max
@@ -43,17 +43,17 @@ const Detail = (props) => {
                 }
                 {/* <h3>Weight: {`${myDog.weight_min} - ${myDog.weight_max}`} kg</h3> */}
                 <h3>Height: {`${myDog.height_min} - ${myDog.height_max}`}</h3>
-                {/* <h3>Temperament: {!myDog.cratedInDb? myDog.temperament : myDog.temperament.map(t => t.name)}</h3> */}
-                <h3>Temperament: </h3>
-                <h3>
+                {/* <div>Temperaments: {myDog.temperament?.map((el) => el.name)}</div> */}
+                <h3>Temperament: {!myDog.cratedInDb? myDog.temperament : Object.values(myDog).temperament.map((t) => Object.values(t.name) + '.')}</h3>
+                {/* <h3>Temperament: </h3> */}
+                {/* <h3>
                 {
-                
-                myDog.cratedInDb ? myDog.temperament.map((e) => e.name).join(', ')
-                :
-                myDog.temperament ? myDog.temperament
-                :"No temperaments provided for this breed"
-                }
-                </h3>
+                    myDog.cratedInDb 
+                    ? myDog.temperament.map((e) => e.name).join(', ')
+                    : myDog.temperament 
+                    ? myDog.temperament
+                    :"No temperaments provided for this breed"}
+                </h3> */}
             </div> : <p>Loading...</p>
             }
             <Link to= '/home'>

@@ -48,7 +48,7 @@ export function createDog(payload){
     return async function (dispatch){
         try {
             let res = await axios.post('http://localhost:3001/dog/', payload)
-            return dispatch({type: CREATE_DOG, payload: res.data})
+            //return dispatch({type: CREATE_DOG, payload: res.data})
         } catch (error) {
             console.log(error);
         }
