@@ -113,7 +113,7 @@ router.post('/', async(req, res, next) =>{
         //if (name && weight_min && weight_max && height_min && height_max && temperament){
             let newDog = await Dog.create({
             name,
-            image,
+            image: image?image: "https://i.pinimg.com/474x/d8/c0/52/d8c0529ad3f1baf0cb17a9534172b948--smiling-animals-smiling-dogs.jpg",
             height_min,
             height_max,
             weight_min,
