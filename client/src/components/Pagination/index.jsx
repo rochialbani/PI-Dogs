@@ -1,16 +1,19 @@
 import React from "react";
+import s from '../../styles/Pagination.module.css'
 
-const Pagination = ({dogsPerPage, allDogs, pagination}) =>{
+const Pagination = ({dogsPerPage, allDogs, pagination, currentPage}) =>{
     const pageNumbers = []
     for (let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {
         pageNumbers.push(i)   
     }
     return (
-        <nav>
-            <ul>
+        <nav className={s.nav}>
+            <ul className={s.paginated}>
                 {
                     pageNumbers && pageNumbers.map(p=>(
-                        <button onClick={() => pagination(p)} key={p}> {p} </button>
+                        <li className={s.number} key={p}>
+                        <button className= {currentPage === p? s.current : s.img} onClick={() => pagination(p)} key={p}> {p} </button>
+                        </li>
                     )
                     )
                 }

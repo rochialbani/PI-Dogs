@@ -3,6 +3,7 @@ import { useEffect, useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {createDog, getTemperaments} from '../../redux/actions'
+import s from '../../styles/CreateDog.module.css'
 
 const CreateDog = () => {
     const dispatch = useDispatch()
@@ -168,12 +169,13 @@ const CreateDog = () => {
 
 
     return(
-        <div>
-            <Link to="/home"><button>Home</button></Link>  
+        <div className={s.img}>
+            <Link to="/home"><button className={s.button}>Home</button></Link>  
+            <div className={s.formy}>
             <h1>Create your dog!</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label>Name: </label>
+                    <label> Breed Name: </label>
                     <input type="text"  name='name' value={input.name} onChange={(e)=>handleChange(e)}/>
                     {error.name && (<p className='error'>{error.name}</p>)}
                 </div>
@@ -208,7 +210,7 @@ const CreateDog = () => {
                     {error.life_span_max && (<p className='error'>{error.life_span_max}</p>)}
                 </div>
                 <div>
-                    <label> Image: </label>
+                    <label> Image URL: </label>
                     <input type="text"  name='image' value={input.image} onChange={(e)=>handleChange(e)}/>
                     {error.image && (<p className='error'>{error.image}</p>)}
                 </div>
@@ -220,14 +222,16 @@ const CreateDog = () => {
                 </select>
                 {error.temperaments && (<p className='error'>{error.temperaments}</p>)}
             </form>
-            
-                <button type="submit" onClick={(e) => handleSubmit(e)}>Ready!</button>
+                <button className={s.button} type="submit" onClick={(e) => handleSubmit(e)}>Ready!</button>
+                <div className={s.tempy}>
             {input.temperaments.map(t =>
-                <div className='temp'>
+                <div className={s.temp}>
                     <p>{t}</p>
                     <button className="button" onClick={() => handleDelete(t)}>X</button>
                     </div>
                     )}
+                </div>
+            </div>
         </div>
     )
 }
