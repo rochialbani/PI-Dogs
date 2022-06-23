@@ -159,13 +159,13 @@ const Home = () => {
           <div>
             <ul className={s.grid}>
             {currentDogs.length === 0 && currentDogs ? (
-              <div class={s.wrapper}>
-                <div class={s.circle}></div>
-                <div class={s.circle}></div>
-                <div class={s.circle}></div>
-                <div class={s.shadow}></div>
-                <div class={s.shadow}></div>
-                <div class={s.shadow}></div>
+              <div className={s.wrapper}>{/* loading */}
+                <div className={s.circle}></div>
+                <div className={s.circle}></div>
+                <div className={s.circle}></div>
+                <div className={s.shadow}></div>
+                <div className={s.shadow}></div>
+                <div className={s.shadow}></div>
               </div>
             ) : (
               currentDogs.map((d) => {

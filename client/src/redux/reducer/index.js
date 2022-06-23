@@ -58,32 +58,12 @@ const rootReducer = (state = initialState, action) =>{
                 ...state,
                 dogs: createdFilter,
             };
-            // const dogsDbOrApi = action.payload === "Created" ? state.dogs.filter(d => d.createdInDb) : state.dogs.filter(d => !d.createdInDb)  
-            // return{
-            //     ...state,
-            //     dogs: action.payload === "All" ? state.allDogs : dogsDbOrApi,
-            //     filterOrder: {
-            //         ...state.filterOrder,
-            //         filterApiDb: action.payload
-            //     }
-            // }; 
         case FILTER_TEMPERAMENTS:
-            const filter = action.payload === 'All' ? state.allDogs : state.allDogs?.filter(data => data.temperaments?.includes(action.payload));
+            const filter = action.payload === 'All' ? state.allDogs : state.allDogs.filter(data => data.temperaments?.includes(action.payload));
             return{
                 ...state,
                 dogs: filter,   
             }
-        //     const dogFilter = action.payload === 'All'? state.dogs : state.dogs.filter(d => {
-        //     return d.temperament && d.temperament.include(action.payload)    
-        // })
-        //         return{
-        //             ...state,
-        //             dogs: dogFilter,
-        //             filterOrder: {
-        //                 ...state.filterOrder,
-        //                 tempFilter: action.payload
-        //             }
-        //         }
         case ORDER:
             let dogsInOrder =[]
             if(action.payload === 'All'){
@@ -142,7 +122,7 @@ const rootReducer = (state = initialState, action) =>{
                 dogs: [...dogsInOrder],
                 filterOrder: {
                     ...state.filterOrder,
-                    sortType: dogsInOrder
+                    orderType: dogsInOrder
                 }
             };
         default: return {...state}

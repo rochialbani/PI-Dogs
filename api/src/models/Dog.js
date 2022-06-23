@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,//este sería el autoincrement, me genera un id automatico V4
     },
     name: {
       type: DataTypes.STRING,

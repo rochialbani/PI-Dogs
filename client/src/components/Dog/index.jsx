@@ -19,8 +19,8 @@ const Dog = ({id, image, name, weight_min, weight_max, temperaments, createdInDb
             {/* <h3>Temperament: {!cratedInDb? temperaments : temperaments.map(t => t)}</h3> */}
             <h4>
                     {createdInDb
-                        ? temperaments.map((e) => e.name).join(', ')// ["","",""]
-                        : temperaments
+                        ? temperaments.map((e) => e.name).join(', ')//["t1","t2","t3"] me devuelve el map ---- 
+                        : temperaments                              //"t1, t2, t3" me hace el join
                         ? temperaments
                         : "No temperaments provided for this breed!!"}
                 </h4>

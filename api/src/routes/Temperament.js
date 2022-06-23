@@ -12,9 +12,8 @@ router.get('/', async(req, res, next) =>{
         //console.log(temperaments)
         let temperamentsSplit = temperaments.join(', ').split(', ').sort()
         //console.log(temperamentsSplit)
-        let temp = temperamentsSplit.filter(Boolean)
-        let temperamentsSet = new Set (temp)
-        // el Set guarda valores unicos en un obj 
+        let temp = temperamentsSplit.filter(Boolean)//elimino los strings vacios del array
+        let temperamentsSet = new Set (temp)// el Set guarda valores unicos en un obj 
         //console.log(temperamentsSet)
         temperamentsSet.forEach(element => {
             Temperament.findOrCreate({

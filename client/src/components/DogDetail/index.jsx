@@ -7,21 +7,22 @@ import s from "../../styles/DogDetail.module.css";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
+  //console.log(props)
   const index = props.match.params.id;
   const myDog = useSelector((state) => state.dogDetail);
   useEffect(() => {
     dispatch(DogDetail(index));
     return () => {
-      //limpiar el store cuando se desmonte
+      //limpiar el state cuando se desmonte
       dispatch(clear());
     };
   }, [index, dispatch]);
 
-  console.log(myDog);
+  //console.log(myDog);
   return (
     <div className={s.img}>
       {Object.values(myDog).length > 0 ? (
-        <div class={s.conteiner}>
+        <div className={s.conteiner}>
           <img src={myDog.image} alt="dog image" height="200px" />
           <h1>Name: {myDog.name}</h1>
           {/* <h3>Years: {`${myDog.life_span_min} - ${myDog.life_span_max}`}</h3> */}
@@ -44,7 +45,7 @@ const Detail = (props) => {
               : "There's no weight provided for this dog"}
           </h3>
           {/* <h3>Weight: {`${myDog.weight_min} - ${myDog.weight_max}`} kg</h3> */}
-          <h3>Height: {`${myDog.height_min} - ${myDog.height_max} cm`}</h3>
+          <h3>Height: {`${myDog.height_min} - ${myDog.height_max} cm`}</h3>{/* siempre hay min y max */}
           {/* <div>Temperaments: {myDog.temperament?.map((el) => el.name)}</div> */}
           <h3>
             {!myDog.createdInDb
@@ -62,13 +63,13 @@ const Detail = (props) => {
                 </h3> */}
         </div>
       ) : (
-        <div class={s.wrapper}>
-          <div class={s.circle}></div>
-          <div class={s.circle}></div>
-          <div class={s.circle}></div>
-          <div class={s.shadow}></div>
-          <div class={s.shadow}></div>
-          <div class={s.shadow}></div>
+        <div className={s.wrapper}>
+          <div className={s.circle}></div>
+          <div className={s.circle}></div>
+          <div className={s.circle}></div>
+          <div className={s.shadow}></div>
+          <div className={s.shadow}></div>
+          <div className={s.shadow}></div>
         </div>
       )}
       <Link to="/home">

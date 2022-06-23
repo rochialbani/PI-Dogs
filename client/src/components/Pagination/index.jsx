@@ -3,7 +3,7 @@ import s from '../../styles/Pagination.module.css'
 
 const Pagination = ({dogsPerPage, allDogs, pagination, currentPage}) =>{
     const pageNumbers = []
-    for (let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(allDogs/dogsPerPage); i++) {// 172/8 = 21.5 ---> con el math ceil, son 22 paginas
         pageNumbers.push(i)   
     }
     return (

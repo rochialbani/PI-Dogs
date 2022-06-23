@@ -6,7 +6,7 @@ const LandingPage = () =>{
     return(
         <div className={s.img}>
             <div className={s.conteiner}>
-            <h1>Welcome to the Dog Api</h1>
+            <h1>Welcome to the Dog Api!!!</h1>
             <Link to='/home'>
                 <button className={s.cta}><span>Enter</span>
                 <svg viewBox="0 0 13 10" height="10px" width="15px">
