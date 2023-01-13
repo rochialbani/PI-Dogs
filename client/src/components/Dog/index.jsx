@@ -10,7 +10,7 @@ const Dog = ({id, image, name, weight_min, weight_max, temperaments, createdInDb
     
     return(
         <Link to= {`/dog/${id}`} onClick={() => dispatch(DogDetail(id))}>
-        <div class ={s.conteiner}>
+        <div className ={s.conteiner}>
             <div className={s.info}>
             <img className={s.img} src={image} alt='Img not found' width="300px" height="200px"/>
             <h3 className={s.name}>{name}</h3>
