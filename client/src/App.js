@@ -5,7 +5,7 @@ import Home from './components/Home';
 import DogDetail from './components/DogDetail';
 import CreateDog from './components/CreateDog';
 import axios from 'axios';
-axios.defaults.baseURL = 'https://pi-dogs-api.vercel.app/'
+axios.defaults.baseURL = 'https://pi-dogs-api.vercel.app'
 
 function App() {
   return (
