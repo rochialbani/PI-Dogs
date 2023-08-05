@@ -18,18 +18,20 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 
-/*server.use(cors({
-  credentials: false,
-  origin: '*',
-}));*/
+server.use(cors(
+  {
+    origin: ["https://pi-dogs-theta-beige.vercel.app"],
+    methods: ["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+    credentials: true
+}));
 
-server.use((req, res, next) => {
+/*server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'https://pi-dogs-theta-beige.vercel.app'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.header('Access-Control-Allow-Credentials', 'true');
   //res.header('Access-Control-Allow-Headers', 'Content-Type');//Origin, X-Requested-With, Content-Type, Accept
   next();
-});
+});*/
 
 server.use('/', routes);
 
